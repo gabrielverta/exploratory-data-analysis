@@ -14,7 +14,7 @@ plot1 <- function(data){
     data <- summarise(group, total=sum(Emissions))
     yrng <- range(data$total)
     ylabels <- c(parseNumber(yrng[1]), parseNumber(yrng[2]))
-    plot(data, pch=19, xlab="Year", ylab="PM2.5 Emission", xlim=c(1999, 2008), yaxt="n")
+    plot(data, pch=19, xlab="Year", ylab="PM2.5 Emission", xlim=c(1999, 2008), yaxt="n", main="PM2.5 Emissions in United States")
     axis(2, at=yrng, labels=ylabels)
-    lines(response, lwd = 2, col="red")
+    lines(data, lwd = 2, col="red")
 }
