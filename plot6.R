@@ -1,4 +1,5 @@
-# Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of the years 1999, 2002, 2005, and 2008.
+# Compare emissions from motor vehicle sources in Baltimore City with emissions from motor vehicle sources in Los Angeles County, California (fips == "06037"). Which city has seen greater changes over time in motor vehicle emissions?
+
 library(dplyr)
 library(ggplot2)
 
@@ -21,13 +22,13 @@ parseNumber <- function(num){
 plot6 <- function(data, classification){
   names = list("24510" = "Baltimore", "06037" = "Los Angeles")
   baltimore_los_angeles <- filter(data, fips == "24510" |  fips == "06037")
-  print(dim(baltimore_los_angeles))
+  
   data_classification <- pm25Classification(baltimore_los_angeles, classification)
-  print(dim(data_classification))
+  
   sectors <- unique(classification$EI.Sector)
   coal_sectors <- sectors[grep("^Mobile", sectors)]
   coal_data <- filter(data_classification, EI.Sector %in% coal_sectors)
-  print(dim(coal_data))
+  
   coal_data <- mutate(coal_data, fips=sapply(fips, function(index) { names[[index]] }))
   
   group <- group_by(coal_data, year, fips)
@@ -35,3 +36,9 @@ plot6 <- function(data, classification){
     
   qplot(year, total, data=d, color=fips, geom=c("point", "smooth"), main="Motor Vehicle PM2.5 Emissions in Baltimore City")
 }
+
+png("plots/plot6.png")
+d <- pm25Data()
+cl <- classifications()
+print(plot6(d, cl))
+dev.off()

@@ -1,4 +1,5 @@
-# Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of the years 1999, 2002, 2005, and 2008.
+# Of the four types of sources indicated by the type (point, nonpoint, onroad, nonroad) variable, which of these four sources have seen decreases in emissions from 1999–2008 for Baltimore City? Which have seen increases in emissions from 1999–2008? Use the ggplot2 plotting system to make a plot answer this question.
+
 library(dplyr)
 library(ggplot2)
 
@@ -14,5 +15,10 @@ plot3 <- function(data){
   baltimore <- filter(data, fips == "24510")
   group <- group_by(baltimore, year, type)
   data <- summarise(group, total=sum(Emissions))
-  qplot(year, total, data=h, color=type, geom=c("point", "smooth"), main="PM2.5 Emissions in Baltimore City")
+  qplot(year, total, data=data, color=type, geom=c("point", "smooth"), main="PM2.5 Emissions in Baltimore City")
 }
+
+png("plots/plot3.png")
+d <- pm25Data()
+print(plot3(d))
+dev.off()

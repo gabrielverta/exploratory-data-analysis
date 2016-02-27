@@ -1,4 +1,5 @@
-# Have total emissions from PM2.5 decreased in the United States from 1999 to 2008? Using the base plotting system, make a plot showing the total PM2.5 emission from all sources for each of the years 1999, 2002, 2005, and 2008.
+# How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
+
 library(dplyr)
 library(ggplot2)
 
@@ -30,3 +31,9 @@ plot5 <- function(data, classification){
   
   qplot(year, total, data=data, color=EI.Sector, geom=c("point", "smooth"), main="Motor Vehicle PM2.5 Emissions in Baltimore City")
 }
+
+png("plots/plot5.png")
+d <- pm25Data()
+cl <- classifications()
+print(plot5(d, cl))
+dev.off()
