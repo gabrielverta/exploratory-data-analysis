@@ -28,9 +28,4 @@ plot4 <- function(data, classification){
   data <- summarise(group, total=sum(Emissions))
   
   qplot(year, total, data=data, color=EI.Sector, geom=c("point", "smooth"), main="Coal Related PM2.5 Emissions")
-  #yrng <- range(data$total)
-  #ylabels <- c(parseNumber(yrng[1]), parseNumber(yrng[2]))
-  #plot(data, pch=19, xlab="Year", ylab="Coal PM2.5 Emission", xlim=c(1999, 2008), yaxt="n", main="Coal Related PM2.5 Emission in Baltimore City")
-  #axis(2, at=yrng, labels=ylabels)
-  #lines(data, lwd = 2, col="red")
 }
